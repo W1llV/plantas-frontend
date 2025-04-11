@@ -53,7 +53,7 @@ async function openPlantModal(plant) {
     document.getElementById('modal-plant-name').textContent = plant.common_name || plant.scientific_name;
     const mainImage = document.getElementById('modal-main-image');
     const query = `${plant.common_name || ''} ${plant.scientific_name || ''}`.trim();
-    const unsplashApiUrl = `https://plantas-backend.onrender.comm/get-images?query=${encodeURIComponent(query)}`;
+    const unsplashApiUrl = `https://plantas-backend.onrender.com/get-images?query=${encodeURIComponent(query)}`;
 
     try {
         const response = await fetch(unsplashApiUrl);
