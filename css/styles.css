@@ -1,0 +1,38 @@
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+.plant-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    display: inline-block;
+    width: 200px;
+}
+.plant-image img {
+    width: 100%;
+    height: auto;
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+}
+.modal-content {
+    background: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    width: 80%;
+}
+.close {
+    float: right;
+    cursor: pointer;
+}
+.carousel img {
+    width: 50px;
+    margin: 5px;
+    cursor: pointer;
+}
