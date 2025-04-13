@@ -1,38 +1,92 @@
-
 body {
     font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
     padding: 20px;
+}
+.container {
+    max-width: 1200px; /* Ajusta el ancho del contenedor */
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.plants-list {
+    display: grid; /* Usar grid para organizar las tarjetas */
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+    gap: 20px; /* Espacio entre tarjetas */
 }
 .plant-card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px;
-    display: inline-block;
-    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer; /* Cambia el cursor al pasar sobre la tarjeta */
+    display: flex;
+    flex-direction: column; /* Apilar imagen y contenido verticalmente */
 }
 .plant-image img {
-    width: 100%;
-    height: auto;
+    width: 100%; /* Asegúrate de que la imagen ocupe todo el ancho */
+    height: 200px; /* Fijar la altura de la imagen */
+    object-fit: cover; /* Mantener la proporción de aspecto */
 }
+/* Estilos del modal */
 .modal {
-    display: none;
+    display: none; /* Oculto por defecto */
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.8);
+    z-index: 1; /* En frente */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Habilitar scroll si es necesario */
+    background-color: rgb(0,0,0); /* Color de fondo negro */
+    background-color: rgba(0,0,0,0.4); /* Fondo negro con opacidad */
+    padding-top: 60px; /* Espaciado superior */
 }
 .modal-content {
-    background: #fff;
-    margin: 10% auto;
+    background-color: #fefefe;
+    margin: 5% auto; /* 15% desde la parte superior y centrado */
     padding: 20px;
-    width: 80%;
+    border: 1px solid #888;
+    width: 80%; /* Podrías ajustar el ancho */
+    border-radius: 8px;
+    text-align: center; /* Centrar el texto */
 }
 .close {
+    color: #aaa;
     float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
     cursor: pointer;
 }
+/* Estilos para la imagen grande y el carrusel */
+.main-image {
+    width: 100%; /* Ajustar al contenedor */
+    max-width: 400px; /* Tamaño máximo de la imagen principal */
+    height: auto;
+    margin-bottom: 20px; /* Espaciado inferior */
+}
+.carousel {
+    display: flex;
+    justify-content: center; /* Centrar el carrusel */
+    overflow-x: auto; /* Permitir desplazamiento horizontal */
+    padding: 10px 0;
+    gap: 10px; /* Espacio entre imágenes del carrusel */
+    max-width: 100%; /* Asegurar que no exceda el contenedor */
+    scroll-snap-type: x mandatory; /* Para un desplazamiento más suave */
+}
 .carousel img {
-    width: 50px;
-    margin: 5px;
-    cursor: pointer;
+    width: 80px; /* Tamaño de cada imagen en el carrusel */
+    height: auto;
+    cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
+    border: 1px solid #ddd; /* Borde para las imágenes del carrusel */
+    border-radius: 4px; /* Bordes redondeados */
+    scroll-snap-align: center; /* Alinear imágenes al centro al deslizar */
 }
