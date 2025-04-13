@@ -98,6 +98,7 @@ body {
     width: 400px; /* Ajusta el ancho deseado */
     height: 300px; /* Establece una altura fija */
     object-fit: cover; /* Mantiene la proporción de aspecto */
-    margin-bottom: 20px; /* Espaciado inferior */
+    display: block; /* Asegura que se comporte como un bloque */
+    margin: 0 auto 20px; /* Centra la imagen y añade espaciado inferior */
 }
 
