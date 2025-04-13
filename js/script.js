@@ -21,12 +21,14 @@ function displayPlants(data) {
 
         const plantImage = document.createElement('div');
         plantImage.classList.add('plant-image');
+        
         const img = document.createElement('img');
         img.src = plant.image_url || 'https://via.placeholder.com/150';
         plantImage.appendChild(img);
 
         const plantInfo = document.createElement('div');
         plantInfo.classList.add('plant-info');
+        
         const plantName = document.createElement('h2');
         plantName.textContent = plant.common_name || plant.scientific_name;
         const scientificName = document.createElement('p');
