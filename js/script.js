@@ -148,4 +148,4 @@ window.onclick = function(event) {
     }
 };
 
-fetchData();
+fetchPlantIds();
