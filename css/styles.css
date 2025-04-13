@@ -90,3 +90,16 @@ body {
     border-radius: 4px; /* Bordes redondeados */
     scroll-snap-align: center; /* Alinear imágenes al centro al deslizar */
 }
+.plant-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 300px; /* Ajusta la altura deseada */
+}
+.plant-info {
+    flex-grow: 1; /* Permite que el contenido ocupe el espacio restante */
+}
