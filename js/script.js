@@ -64,7 +64,7 @@ async function openPlantModal(plant) {
         carouselImagesDiv.innerHTML = '';
 
         if (data.results.length > 0) {
-            mainImage.src = data.results[0].urls.small;
+            mainImage.src = data.results[0].urls.small; // Asegúrate de que esta URL sea consistente
             data.results.forEach(image => {
                 const img = document.createElement('img');
                 img.src = image.urls.thumb;
