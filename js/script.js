@@ -8,15 +8,18 @@ async function fetchData() {
         const response = await fetch(url);
         const data = await response.json();
         
-        // Filtrar plantas que mencionan "México" en su distribución
+        // Filtrar plantas según distribuciones específicas
+        const validDistributions = [
+            "Mexico Central",
+            "Mexico Gulf",
+            "Mexico Northeast",
+            "Mexico Northwest",
+            "Mexico Southeast",
+            "Mexico Southwest"
+        ];
+
         const filteredPlants = data.data.filter(plant => {
-            return plant.distribution && plant.distribution.includes(
-                "Mexico Central",
-                "Mexico Gulf",
-                "Mexico Northeast",
-                "Mexico Northwest",
-                "Mexico Southeast",
-                "Mexico Southwest");
+            return plant.distribution && validDistributions.some(dist => plant.distribution.includes(dist));
         });
         
         displayPlants(filteredPlants);
