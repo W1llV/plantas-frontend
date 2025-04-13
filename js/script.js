@@ -10,7 +10,13 @@ async function fetchData() {
         
         // Filtrar plantas que mencionan "México" en su distribución
         const filteredPlants = data.data.filter(plant => {
-            return plant.distribution && plant.distribution.includes('Mexico');
+            return plant.distribution && plant.distribution.includes(
+                "Mexico Central",
+                "Mexico Gulf",
+                "Mexico Northeast",
+                "Mexico Northwest",
+                "Mexico Southeast",
+                "Mexico Southwest");
         });
         
         displayPlants(filteredPlants);
