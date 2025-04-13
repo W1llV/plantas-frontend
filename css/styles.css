@@ -87,11 +87,11 @@ body {
     scroll-snap-type: x mandatory; /* Para un desplazamiento más suave */
 }
 .carousel img {
-    width: 80px; /* Tamaño de cada imagen en el carrusel */
-    height: auto;
-    cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
+    width: 100px; /* Ajusta el ancho deseado */
+    height: 100px; /* Establece una altura fija */
+    object-fit: cover; /* Mantiene la proporción de aspecto y recorta si es necesario */
+    cursor: pointer;
     border: 1px solid #ddd; /* Borde para las imágenes del carrusel */
     border-radius: 4px; /* Bordes redondeados */
-    scroll-snap-align: center; /* Alinear imágenes al centro al deslizar */
 }
 
