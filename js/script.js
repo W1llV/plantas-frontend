@@ -7,9 +7,6 @@ async function fetchData() {
         const response = await fetch(url);
         const data = await response.json();
         
-        // Obtener las plantas con sus IDs
-        const plantsWithDistribution = await Promise.all(data.data.map(plant => fetchPlantById(plant.id)));
-
         // Filtrar plantas según distribuciones específicas
         const validDistributions = [
             "Mexico Central",
@@ -20,7 +17,7 @@ async function fetchData() {
             "Mexico Southwest"
         ];
 
-        const filteredPlants = plantsWithDistribution.filter(plant => {
+        const filteredPlants = data.data.filter(plant => {
             return plant.distribution && validDistributions.some(dist => plant.distribution.includes(dist));
         });
         
@@ -30,22 +27,9 @@ async function fetchData() {
     }
 }
 
-async function fetchPlantById(id) {
-    const url = `https://plantas-backend.onrender.com/get-plants/${id}`;
-    const response = await fetch(url);
-    return await response.json();
-}
-
 function displayPlants(data) {
     const plantsList = document.getElementById('plants-list');
     plantsList.innerHTML = ''; // Limpiar la lista antes de mostrar nuevas plantas
-
-    if (data.length === 0) {
-        const message = document.createElement('p');
-        message.textContent = 'No se encontraron plantas en México.';
-        plantsList.appendChild(message);
-        return;
-    }
 
     data.forEach(plant => {
         const plantCard = document.createElement('div');
