@@ -94,4 +94,10 @@ body {
     border: 1px solid #ddd; /* Borde para las imágenes del carrusel */
     border-radius: 4px; /* Bordes redondeados */
 }
+#modal-main-image {
+    width: 400px; /* Ajusta el ancho deseado */
+    height: 300px; /* Establece una altura fija */
+    object-fit: cover; /* Mantiene la proporción de aspecto */
+    margin-bottom: 20px; /* Espaciado inferior */
+}
 
