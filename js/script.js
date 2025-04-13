@@ -7,7 +7,13 @@ async function fetchData() {
     try {
         const response = await fetch(url);
         const data = await response.json();
-        displayPlants(data.data);
+        
+        // Filtrar plantas que mencionan "México" en su distribución
+        const filteredPlants = data.data.filter(plant => {
+            return plant.distribution && plant.distribution.includes('Mexico');
+        });
+        
+        displayPlants(filteredPlants);
     } catch (error) {
         console.error('Error al obtener los datos:', error);
     }
@@ -15,6 +21,8 @@ async function fetchData() {
 
 function displayPlants(data) {
     const plantsList = document.getElementById('plants-list');
+    plantsList.innerHTML = ''; // Limpiar la lista antes de mostrar nuevas plantas
+
     data.forEach(plant => {
         const plantCard = document.createElement('div');
         plantCard.classList.add('plant-card');
