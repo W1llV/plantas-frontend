@@ -1,3 +1,4 @@
+
 let currentSlideIndex = 0;
 
 async function fetchData() {
@@ -6,22 +7,7 @@ async function fetchData() {
     try {
         const response = await fetch(url);
         const data = await response.json();
-        
-        // Filtrar plantas según distribuciones específicas
-        const validDistributions = [
-            "Mexico Central",
-            "Mexico Gulf",
-            "Mexico Northeast",
-            "Mexico Northwest",
-            "Mexico Southeast",
-            "Mexico Southwest"
-        ];
-
-        const filteredPlants = data.data.filter(plant => {
-            return plant.distribution && validDistributions.some(dist => plant.distribution.includes(dist));
-        });
-        
-        displayPlants(filteredPlants);
+        displayPlants(data.data);
     } catch (error) {
         console.error('Error al obtener los datos:', error);
     }
@@ -29,8 +15,6 @@ async function fetchData() {
 
 function displayPlants(data) {
     const plantsList = document.getElementById('plants-list');
-    plantsList.innerHTML = ''; // Limpiar la lista antes de mostrar nuevas plantas
-
     data.forEach(plant => {
         const plantCard = document.createElement('div');
         plantCard.classList.add('plant-card');
@@ -80,7 +64,7 @@ async function openPlantModal(plant) {
         carouselImagesDiv.innerHTML = '';
 
         if (data.results.length > 0) {
-            mainImage.src = data.results[0].urls.small; // Asegúrate de que esta URL sea consistente
+            mainImage.src = data.results[0].urls.small;
             data.results.forEach(image => {
                 const img = document.createElement('img');
                 img.src = image.urls.thumb;
