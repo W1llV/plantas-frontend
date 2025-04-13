@@ -95,10 +95,10 @@ body {
     border-radius: 4px; /* Bordes redondeados */
 }
 #modal-main-image {
-    width: 400px; /* Ajusta el ancho deseado */
-    height: 300px; /* Establece una altura fija */
+    width: 400px; /* Ancho fijo */
+    height: 300px; /* Altura fija */
     object-fit: cover; /* Mantiene la proporción de aspecto */
-    display: block; /* Asegura que se comporte como un bloque */
-    margin: 0 auto 20px; /* Centra la imagen y añade espaciado inferior */
+    display: block; /* Comportamiento de bloque */
+    margin: 0 auto 20px; /* Centra la imagen */
 }
 
