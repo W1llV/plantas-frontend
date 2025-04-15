@@ -1,5 +1,11 @@
 let currentSlideIndex = 0;
 const validDistributions = [
+    "Mexico Central",
+    "Mexico Gulf",
+    "Mexico Northeast",
+    "Mexico Northwest",
+    "Mexico Southeast",
+    "Mexico Southwest",
     "Algeria",
           "France",
           "Morocco",
@@ -9,7 +15,7 @@ const validDistributions = [
 
 async function fetchAllPlants(page = 1, allPlants = []) {
     // Limitar a 300 páginas
-    if (page < 300) {
+    if (page > 300) {
         return allPlants;
     }
 
@@ -50,7 +56,7 @@ function displayPlants(data) {
 
     if (data.length === 0) {
         const message = document.createElement('p');
-        message.textContent = 'No se encontraron plantas';
+        message.textContent = 'No se encontraron plantas en México.';
         plantsList.appendChild(message);
         return;
     }
