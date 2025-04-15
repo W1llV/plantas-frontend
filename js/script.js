@@ -9,6 +9,11 @@ const validDistributions = [
 ];
 
 async function fetchAllPlants(page = 1, allPlants = []) {
+    // Limitar a 300 páginas
+    if (page > 300) {
+        return allPlants;
+    }
+
     const url = `https://plantas-backend.onrender.com/get-plants?page=${page}`;
 
     try {
@@ -20,7 +25,7 @@ async function fetchAllPlants(page = 1, allPlants = []) {
 
         // Comprobar si hay más páginas
         if (data.links.next) {
-            await new Promise(resolve => setTimeout(resolve, 500)); // Esperar medio segundo para no exceder el límite de solicitudes
+            await new Promise(resolve => setTimeout(resolve, 500)); // Esperar medio segundo
             return fetchAllPlants(page + 1, allPlants);
         } else {
             return allPlants; // Devolver todas las plantas
@@ -139,3 +144,4 @@ window.onclick = function(event) {
 
 // Inicia el proceso de filtrado
 filterPlantsByDistribution();
+
