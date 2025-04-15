@@ -38,7 +38,7 @@ async function fetchPlantDetailsById(ids) {
 
     for (const id of ids) {
         try {
-            const response = await fetch(`https://plantas-backend.onrender.com/get-plants/${id}?`);
+            const response = await fetch(`https://plantas-backend.onrender.com/get-plants?${id}`);
             if (!response.ok) {
                 throw new Error(`Error en la solicitud para ID ${id}: ${response.status}`);
             }
