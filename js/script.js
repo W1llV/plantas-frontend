@@ -50,11 +50,7 @@ function displayPlants(data) {
 
     if (data.length === 0) {
         const message = document.createElement('p');
-        message.textContent = 'No se encontraron plantas en Algeria,
-          "France",
-          "Morocco",
-          "Portugal",
-          "Spain".';
+        message.textContent = 'No se encontraron plantas';
         plantsList.appendChild(message);
         return;
     }
