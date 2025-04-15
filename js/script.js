@@ -1,4 +1,4 @@
-let currentSlideIndex = 0;
+
 const validContinents = {
     "America": [],
     "Africa": [],
