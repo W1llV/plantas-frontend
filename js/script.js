@@ -10,7 +10,7 @@ const validDistributions = [
 
 async function fetchAllPlants(page = 1, allPlants = []) {
     // Limitar a 300 páginas
-    if (page > 300) {
+    if (page < 300) {
         return allPlants;
     }
 
