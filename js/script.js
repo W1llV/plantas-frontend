@@ -1,5 +1,4 @@
 let currentSlideIndex = 0;
-const plantIds = []; // Para almacenar los IDs de las plantas
 const validDistributions = [
     "Mexico Central",
     "Mexico Gulf",
@@ -9,45 +8,35 @@ const validDistributions = [
     "Mexico Southwest"
 ];
 
-async function fetchPlantIds(page = 1) {
+async function fetchAllPlants(page = 1, allPlants = []) {
     const url = `https://plantas-backend.onrender.com/get-plants?page=${page}`;
 
     try {
         const response = await fetch(url);
         const data = await response.json();
-        
-        // Almacena los IDs de las plantas
-        data.data.forEach(plant => plantIds.push(plant.id));
-        
-        // Si hay más páginas, llama a la función recursivamente
+
+        // Agregar las plantas de la página actual a la lista total
+        allPlants = allPlants.concat(data.data);
+
+        // Comprobar si hay más páginas
         if (data.links.next) {
-            await fetchPlantIds(page + 1);
+            await new Promise(resolve => setTimeout(resolve, 500)); // Esperar medio segundo para no exceder el límite de solicitudes
+            return fetchAllPlants(page + 1, allPlants);
         } else {
-            // Una vez que se obtienen todos los IDs, llama a la función para obtener detalles
-            fetchPlantDetails();
+            return allPlants; // Devolver todas las plantas
         }
     } catch (error) {
-        console.error('Error al obtener los IDs de las plantas:', error);
+        console.error('Error al obtener los datos de las plantas:', error);
+        return allPlants; // Devolver lo que se ha obtenido hasta ahora
     }
 }
 
-async function fetchPlantDetails() {
-    const filteredPlants = [];
-
-    for (const id of plantIds) {
-        try {
-            const response = await fetch(`https://plantas-backend.onrender.com/get-plants/${id}`);
-            const plant = await response.json();
-            
-            // Filtrar por distribución
-            if (plant.distribution && validDistributions.some(dist => plant.distribution.includes(dist))) {
-                filteredPlants.push(plant);
-            }
-        } catch (error) {
-            console.error(`Error al obtener detalles de la planta con ID ${id}:`, error);
-        }
-    }
-
+async function filterPlantsByDistribution() {
+    const allPlants = await fetchAllPlants();
+    const filteredPlants = allPlants.filter(plant => {
+        return plant.distribution && validDistributions.some(dist => plant.distribution.includes(dist));
+    });
+    
     displayPlants(filteredPlants);
 }
 
@@ -148,4 +137,5 @@ window.onclick = function(event) {
     }
 };
 
-fetchPlantIds();
+// Inicia el proceso de filtrado
+filterPlantsByDistribution();
