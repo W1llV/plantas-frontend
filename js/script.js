@@ -7,7 +7,7 @@ const validContinents = {
 };
 
 async function fetchAllPlantIds(page = 1, allIds = []) {
-    if (page > 15) {
+    if (page < 15) {
         return allIds;
     }
 
