@@ -55,13 +55,11 @@ async function fetchPlantDetailsById(ids) {
 }
 
 function classifyPlantsByContinent(plants) {
-    validContinents = {
-        America: [],
-        Africa: [],
-        Asia: [],
-        Europe: [],
-        Oceania: []
-    };
+    validContinents.America = [];
+    validContinents.Africa = [];
+    validContinents.Asia = [];
+    validContinents.Europe = [];
+    validContinents.Oceania = [];
 
     plants.forEach(plant => {
         const nativeCountries = plant.distribution?.native || [];
