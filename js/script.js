@@ -55,8 +55,17 @@ async function fetchPlantDetailsById(ids) {
 }
 
 function classifyPlantsByContinent(plants) {
+    validContinents = {
+        America: [],
+        Africa: [],
+        Asia: [],
+        Europe: [],
+        Oceania: []
+    };
+
     plants.forEach(plant => {
         const nativeCountries = plant.distribution?.native || [];
+
         nativeCountries.forEach(country => {
             if (isInContinent(country, "America")) {
                 validContinents.America.push(plant);
@@ -71,18 +80,38 @@ function classifyPlantsByContinent(plants) {
             }
         });
     });
+
+    return validContinents;
 }
 
-function isInContinent(country, continent) {
-    const continentCountries = {
-        "America": ["Mexico", "USA", "Canada", "Brazil"], // Agregar más países
-        "Africa": ["Nigeria", "South Africa", "Egypt"], // Agregar más países
-        "Asia": ["China", "India", "Japan"], // Agregar más países
-        "Europe": ["Germany", "France", "Spain"], // Agregar más países
-        "Oceania": ["Australia", "New Zealand"] // Agregar más países
-    };
+
+function isInContinent(countryCode, continent) {
+    const paisesPorContinente = {
+    America: [
+        'US','CA','MX','BR','AR','CO','CL','PE','VE','GT','CU','BO','DO','HN','PY','NI','SV',
+        'CR','PA','UY','JM','HT','BS','BZ','BB','GY','SR','TT','GD','LC','VC','AG','DM','KN'
+    ],
+    Africa: [
+        'NG','EG','ZA','DZ','ET','TZ','KE','UG','MA','GH','AO','CI','CM','SN','ZW','SD','TN','ML',
+        'ZM','NE','BF','SS','TD','RW','SO','BJ','BI','LY','CG','LR','MR','SL','GA','GQ','GW','DJ',
+        'SZ','LS','GM','ST','KM','CV','ER','SC','RE','YT','SH'
+    ],
+    Asia: [
+        'CN','IN','ID','PK','BD','JP','PH','VN','IR','TR','TH','MM','KR','IQ','AF','SA','UZ','MY',
+        'YE','NP','KP','SY','KH','JO','AZ','AE','TJ','IL','LA','KG','LK','OM','SG','PS','KW','GE',
+        'MN','AM','QA','BH','TL','BT','MV','BN','KG'
+    ],
+    Europe: [
+        'RU','DE','FR','UK','IT','ES','UA','PL','RO','NL','BE','CZ','GR','PT','SE','HU','BY','AT',
+        'CH','BG','DK','FI','SK','NO','IE','HR','LT','SI','LV','EE','LU','MT','IS','AL','CY','ME',
+        'MK','MD','BA','SM','MC','LI','VA','AD','XK'
+    ],
+    Oceania: [
+        'AU','NZ','PG','FJ','SB','WS','TO','TV','VU','FM','MH','NR','KI','PW','CK','NU'
+    ]
+};
     
-    return continentCountries[continent].includes(country);
+    return paisesPorContinente[continent]?.includes(countryCode);
 }
 
 function displayResultsByContinent() {
