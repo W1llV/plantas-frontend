@@ -83,6 +83,42 @@ function classifyPlantsByContinent(plants) {
     return validContinents;
 }
 
+function isInContinent(countryCode, continent) {
+    const paisesPorContinente = {
+        America: [
+            "Mexico", "USA", "Canada", "Brazil",
+            "Mexico Central", "Mexico Gulf", "Mexico Northeast", "Mexico Northwest",
+            "Mexico Southeast", "Mexico Southwest"
+        ],
+        Africa: [
+            "Nigeria", "South Africa", "Egypt", 
+            "Algeria", "Morocco", "Tunisia"
+        ],
+        Asia: [
+            "China", "India", "Japan", 
+            "Afghanistan", "Altay", "Amur", "Assam", "East Himalaya", "Inner Mongolia", "Iran", 
+            "Iraq", "Kamchatka", "Kazakhstan", "Khabarovsk", "Kirgizstan", "Korea", 
+            "Lebanon-Syria", "Magadan", "Manchuria", "Mongolia", "Nepal", "Pakistan", 
+            "Primorye", "Qinghai", "Tadzhikistan", "Tibet", "Turkey", "Turkmenistan", "Uzbekistan", 
+            "West Himalaya", "West Siberia", "Xinjiang", "Yakutskiya"
+        ],
+        Europe: [
+            "Germany", "France", "Spain", 
+            "Albania", "Austria", "Baltic States", "Belarus", "Belgium", "Bulgaria", "Central European Rus", 
+            "Corse", "Czechoslovakia", "Denmark", "East Aegean Is.", "East European Russia", "Finland", 
+            "Føroyar", "Great Britain", "Greece", "Hungary", "Iceland", "Ireland", "Italy", 
+            "Kriti", "Krym", "Netherlands", "North Caucasus", "North European Russi", "Northwest European R", 
+            "Norway", "Poland", "Portugal", "Romania", "Sardegna", "Sicilia", "South European Russi", 
+            "Sweden", "Switzerland", "Transcaucasus", "Turkey-in-Europe", "Ukraine", "Yugoslavia"
+        ],
+        Oceania: [
+            "Australia", "New Zealand"
+        ]
+    };
+
+    return paisesPorContinente[continent]?.includes(countryCode);
+}
+
 function displayResultsByContinent() {
     const resultsDiv = document.getElementById('plants-list');
     resultsDiv.innerHTML = ''; // Limpiar resultados anteriores
