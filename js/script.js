@@ -21,6 +21,7 @@ async function fetchAllPlantIds(page = 1, allIds = []) {
         const data = await response.json();
         allIds = allIds.concat(data.data.map(plant => plant.id));
 
+        // Llamada recursiva para la siguiente página
         if (data.links.next) {
             await new Promise(resolve => setTimeout(resolve, 500)); // Esperar medio segundo
             return fetchAllPlantIds(page + 1, allIds);
@@ -38,7 +39,7 @@ async function fetchPlantDetailsById(ids) {
 
     for (const id of ids) {
         try {
-            const response = await fetch(`https://plantas-backend.onrender.com/get-plants?${id}`);
+            const response = await fetch(`https://plantas-backend.onrender.com/get-plants/${id}`);
             if (!response.ok) {
                 throw new Error(`Error en la solicitud para ID ${id}: ${response.status}`);
             }
@@ -80,43 +81,6 @@ function classifyPlantsByContinent(plants) {
     });
 
     return validContinents;
-}
-
-
-function isInContinent(countryCode, continent) {
-    const paisesPorContinente = {
-    America: [
-             "Mexico", "USA", "Canada", "Brazil",
-             "Mexico Central", "Mexico Gulf", "Mexico Northeast", "Mexico Northwest",
-             "Mexico Southeast", "Mexico Southwest"
-    ],
-    Africa: [
-             "Nigeria", "South Africa", "Egypt", 
-             "Algeria", "Morocco", "Tunisia"
-    ],
-    Asia: [
-             "China", "India", "Japan", 
-             "Afghanistan", "Altay", "Amur", "Assam", "East Himalaya", "Inner Mongolia", "Iran", 
-             "Iraq", "Kamchatka", "Kazakhstan", "Khabarovsk", "Kirgizstan", "Korea", 
-             "Lebanon-Syria", "Magadan", "Manchuria", "Mongolia", "Nepal", "Pakistan", 
-             "Primorye", "Qinghai", "Tadzhikistan", "Tibet", "Turkey", "Turkmenistan", "Uzbekistan", 
-             "West Himalaya", "West Siberia", "Xinjiang", "Yakutskiya"
-    ],
-    Europe: [
-             "Germany", "France", "Spain", 
-             "Albania", "Austria", "Baltic States", "Belarus", "Belgium", "Bulgaria", "Central European Rus", 
-             "Corse", "Czechoslovakia", "Denmark", "East Aegean Is.", "East European Russia", "Finland", 
-             "Føroyar", "Great Britain", "Greece", "Hungary", "Iceland", "Ireland", "Italy", 
-             "Kriti", "Krym", "Netherlands", "North Caucasus", "North European Russi", "Northwest European R", 
-             "Norway", "Poland", "Portugal", "Romania", "Sardegna", "Sicilia", "South European Russi", 
-             "Sweden", "Switzerland", "Transcaucasus", "Turkey-in-Europe", "Ukraine", "Yugoslavia"
-    ],
-    Oceania: [
-             "Australia", "New Zealand"
-    ]
-};
-    
-    return paisesPorContinente[continent]?.includes(countryCode);
 }
 
 function displayResultsByContinent() {
@@ -185,4 +149,3 @@ window.onclick = function(event) {
 
 // Llama a la función principal para iniciar el proceso
 main();
-
