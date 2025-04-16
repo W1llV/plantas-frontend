@@ -123,6 +123,8 @@ function displayResultsByContinent() {
     const resultsDiv = document.getElementById('plants-list');
     resultsDiv.innerHTML = ''; // Limpiar resultados anteriores
 
+    const displayedIds = new Set(); // Conjunto para almacenar IDs mostrados
+
     for (const [continent, plants] of Object.entries(validContinents)) {
         const continentSection = document.createElement('div');
         continentSection.innerHTML = `<h3>${continent}</h3>`;
@@ -131,46 +133,53 @@ function displayResultsByContinent() {
             continentSection.innerHTML += `<p>No se encontraron plantas en ${continent}.</p>`;
         } else {
             plants.forEach(plant => {
-                const plantName = plant.common_name || plant.scientific_name;
-                const plantCard = document.createElement('div');
-                plantCard.classList.add('plant-card');
+                const plantId = plant.id; // Asegúrate de que cada planta tenga un ID único
 
-                const plantImage = document.createElement('div');
-                plantImage.classList.add('plant-image');
-                const img = document.createElement('img');
-                img.src = plant.image_url || 'https://via.placeholder.com/150';
-                plantImage.appendChild(img);
+                // Solo mostrar la planta si no ha sido mostrada
+                if (!displayedIds.has(plantId)) {
+                    const plantName = plant.common_name || plant.scientific_name;
+                    const plantCard = document.createElement('div');
+                    plantCard.classList.add('plant-card');
 
-                const plantInfo = document.createElement('div');
-                plantInfo.classList.add('plant-info');
-                plantInfo.textContent = plantName;
+                    const plantImage = document.createElement('div');
+                    plantImage.classList.add('plant-image');
+                    const img = document.createElement('img');
+                    img.src = plant.image_url || 'https://via.placeholder.com/150';
+                    plantImage.appendChild(img);
 
-                plantCard.appendChild(plantImage);
-                plantCard.appendChild(plantInfo);
+                    const plantInfo = document.createElement('div');
+                    plantInfo.classList.add('plant-info');
+                    plantInfo.textContent = plantName;
 
-                // Agregar evento de clic para abrir el modal
-                plantCard.onclick = () => {
-                    document.getElementById('modal-plant-name').textContent = plantName;
-                    document.getElementById('modal-scientific-name').textContent = `Nombre científico: ${plant.scientific_name}`;
-                    document.getElementById('modal-family').textContent = `Familia: ${plant.family}`;
-                    document.getElementById('modal-genus').textContent = `Género: ${plant.genus || 'No disponible'}`;
-                    document.getElementById('modal-synonyms').textContent = `Sinónimos: ${plant.synonyms.join(', ') || 'No disponible'}`;
-                    document.getElementById('modal-main-image').src = plant.image_url || 'https://via.placeholder.com/150';
-                    document.getElementById('modal-year').textContent = `Año: ${plant.year || 'No disponible'}`;
-                    document.getElementById('modal-bibliography').textContent = `Bibliografía: ${plant.bibliography || 'No disponible'}`;
-                    document.getElementById('modal-author').textContent = `Autor: ${plant.author || 'No disponible'}`;
-                    document.getElementById('modal-status').textContent = `Estado: ${plant.status || 'No disponible'}`;
-                    //document.getElementById('modal-distribution').textContent = `Distribución: ${plant.distribution?.native.join(', ') || 'No disponible'}`;
-                    document.getElementById('plantModal').style.display = 'block';
-                };
+                    plantCard.appendChild(plantImage);
+                    plantCard.appendChild(plantInfo);
 
-                continentSection.appendChild(plantCard);
+                    // Agregar evento de clic para abrir el modal
+                    plantCard.onclick = () => {
+                        document.getElementById('modal-plant-name').textContent = plantName;
+                        document.getElementById('modal-scientific-name').textContent = `Nombre científico: ${plant.scientific_name}`;
+                        document.getElementById('modal-family').textContent = `Familia: ${plant.family}`;
+                        document.getElementById('modal-genus').textContent = `Género: ${plant.genus || 'No disponible'}`;
+                        document.getElementById('modal-synonyms').textContent = `Sinónimos: ${plant.synonyms.join(', ') || 'No disponible'}`;
+                        document.getElementById('modal-main-image').src = plant.image_url || 'https://via.placeholder.com/150';
+                        document.getElementById('modal-year').textContent = `Año: ${plant.year || 'No disponible'}`;
+                        document.getElementById('modal-bibliography').textContent = `Bibliografía: ${plant.bibliography || 'No disponible'}`;
+                        document.getElementById('modal-author').textContent = `Autor: ${plant.author || 'No disponible'}`;
+                        document.getElementById('modal-status').textContent = `Estado: ${plant.status || 'No disponible'}`;
+                        //document.getElementById('modal-distribution').textContent = `Distribución: ${plant.distribution?.native.join(', ') || 'No disponible'}`;
+                        document.getElementById('plantModal').style.display = 'block';
+                    };
+
+                    continentSection.appendChild(plantCard);
+                    displayedIds.add(plantId); // Agregar ID al conjunto de mostrados
+                }
             });
         }
 
         resultsDiv.appendChild(continentSection);
     }
 }
+
 
 async function main() {
     const plantIds = await fetchAllPlantIds();
