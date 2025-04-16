@@ -133,8 +133,20 @@ function displayResultsByContinent() {
             plants.forEach(plant => {
                 const plantName = plant.common_name || plant.scientific_name;
                 const plantCard = document.createElement('div');
-                plantCard.textContent = plantName;
                 plantCard.classList.add('plant-card');
+
+                const plantImage = document.createElement('div');
+                plantImage.classList.add('plant-image');
+                const img = document.createElement('img');
+                img.src = plant.image_url || 'https://via.placeholder.com/150';
+                plantImage.appendChild(img);
+
+                const plantInfo = document.createElement('div');
+                plantInfo.classList.add('plant-info');
+                plantInfo.textContent = plantName;
+
+                plantCard.appendChild(plantImage);
+                plantCard.appendChild(plantInfo);
 
                 // Agregar evento de clic para abrir el modal
                 plantCard.onclick = () => {
@@ -148,7 +160,7 @@ function displayResultsByContinent() {
                     document.getElementById('modal-bibliography').textContent = `Bibliografía: ${plant.bibliography || 'No disponible'}`;
                     document.getElementById('modal-author').textContent = `Autor: ${plant.author || 'No disponible'}`;
                     document.getElementById('modal-status').textContent = `Estado: ${plant.status || 'No disponible'}`;
-                    document.getElementById('modal-distribution').textContent = `Distribución: ${plant.distribution?.native.join(', ') || 'No disponible'}`;
+                    //document.getElementById('modal-distribution').textContent = `Distribución: ${plant.distribution?.native.join(', ') || 'No disponible'}`;
                     document.getElementById('plantModal').style.display = 'block';
                 };
 
