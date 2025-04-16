@@ -86,26 +86,33 @@ function classifyPlantsByContinent(plants) {
 function isInContinent(countryCode, continent) {
     const paisesPorContinente = {
     America: [
-        'US','CA','MX','BR','AR','CO','CL','PE','VE','GT','CU','BO','DO','HN','PY','NI','SV',
-        'CR','PA','UY','JM','HT','BS','BZ','BB','GY','SR','TT','GD','LC','VC','AG','DM','KN'
+             "Mexico", "USA", "Canada", "Brazil",
+             "Mexico Central", "Mexico Gulf", "Mexico Northeast", "Mexico Northwest",
+             "Mexico Southeast", "Mexico Southwest"
     ],
     Africa: [
-        'NG','EG','ZA','DZ','ET','TZ','KE','UG','MA','GH','AO','CI','CM','SN','ZW','SD','TN','ML',
-        'ZM','NE','BF','SS','TD','RW','SO','BJ','BI','LY','CG','LR','MR','SL','GA','GQ','GW','DJ',
-        'SZ','LS','GM','ST','KM','CV','ER','SC','RE','YT','SH'
+             "Nigeria", "South Africa", "Egypt", 
+             "Algeria", "Morocco", "Tunisia"
     ],
     Asia: [
-        'CN','IN','ID','PK','BD','JP','PH','VN','IR','TR','TH','MM','KR','IQ','AF','SA','UZ','MY',
-        'YE','NP','KP','SY','KH','JO','AZ','AE','TJ','IL','LA','KG','LK','OM','SG','PS','KW','GE',
-        'MN','AM','QA','BH','TL','BT','MV','BN','KG'
+             "China", "India", "Japan", 
+             "Afghanistan", "Altay", "Amur", "Assam", "East Himalaya", "Inner Mongolia", "Iran", 
+             "Iraq", "Kamchatka", "Kazakhstan", "Khabarovsk", "Kirgizstan", "Korea", 
+             "Lebanon-Syria", "Magadan", "Manchuria", "Mongolia", "Nepal", "Pakistan", 
+             "Primorye", "Qinghai", "Tadzhikistan", "Tibet", "Turkey", "Turkmenistan", "Uzbekistan", 
+             "West Himalaya", "West Siberia", "Xinjiang", "Yakutskiya"
     ],
     Europe: [
-        'RU','DE','FR','UK','IT','ES','UA','PL','RO','NL','BE','CZ','GR','PT','SE','HU','BY','AT',
-        'CH','BG','DK','FI','SK','NO','IE','HR','LT','SI','LV','EE','LU','MT','IS','AL','CY','ME',
-        'MK','MD','BA','SM','MC','LI','VA','AD','XK'
+             "Germany", "France", "Spain", 
+             "Albania", "Austria", "Baltic States", "Belarus", "Belgium", "Bulgaria", "Central European Rus", 
+             "Corse", "Czechoslovakia", "Denmark", "East Aegean Is.", "East European Russia", "Finland", 
+             "Føroyar", "Great Britain", "Greece", "Hungary", "Iceland", "Ireland", "Italy", 
+             "Kriti", "Krym", "Netherlands", "North Caucasus", "North European Russi", "Northwest European R", 
+             "Norway", "Poland", "Portugal", "Romania", "Sardegna", "Sicilia", "South European Russi", 
+             "Sweden", "Switzerland", "Transcaucasus", "Turkey-in-Europe", "Ukraine", "Yugoslavia"
     ],
     Oceania: [
-        'AU','NZ','PG','FJ','SB','WS','TO','TV','VU','FM','MH','NR','KI','PW','CK','NU'
+             "Australia", "New Zealand"
     ]
 };
     
