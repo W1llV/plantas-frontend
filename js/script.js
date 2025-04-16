@@ -156,18 +156,7 @@ function displayResultsByContinent() {
 
                     // Agregar evento de clic para abrir el modal
                     plantCard.onclick = () => {
-                        document.getElementById('modal-plant-name').textContent = plantName;
-                        document.getElementById('modal-scientific-name').textContent = `Nombre científico: ${plant.scientific_name}`;
-                        document.getElementById('modal-family').textContent = `Familia: ${plant.family}`;
-                        document.getElementById('modal-genus').textContent = `Género: ${plant.genus || 'No disponible'}`;
-                        document.getElementById('modal-synonyms').textContent = `Sinónimos: ${plant.synonyms.join(', ') || 'No disponible'}`;
-                        document.getElementById('modal-main-image').src = plant.image_url || 'https://via.placeholder.com/150';
-                        document.getElementById('modal-year').textContent = `Año: ${plant.year || 'No disponible'}`;
-                        document.getElementById('modal-bibliography').textContent = `Bibliografía: ${plant.bibliography || 'No disponible'}`;
-                        document.getElementById('modal-author').textContent = `Autor: ${plant.author || 'No disponible'}`;
-                        document.getElementById('modal-status').textContent = `Estado: ${plant.status || 'No disponible'}`;
-                        //document.getElementById('modal-distribution').textContent = `Distribución: ${plant.distribution?.native.join(', ') || 'No disponible'}`;
-                        document.getElementById('plantModal').style.display = 'block';
+                        openPlantModal(plant); // Llamar a la función para abrir el modal
                     };
 
                     continentSection.appendChild(plantCard);
@@ -180,6 +169,45 @@ function displayResultsByContinent() {
     }
 }
 
+async function openPlantModal(plant) {
+    document.getElementById('modal-plant-name').textContent = plant.common_name || plant.scientific_name;
+    const mainImage = document.getElementById('modal-main-image');
+    const query = `${plant.common_name || ''} ${plant.scientific_name || ''}`.trim();
+    const unsplashApiUrl = `https://plantas-backend.onrender.com/get-images?query=${encodeURIComponent(query)}`;
+
+    try {
+        const response = await fetch(unsplashApiUrl);
+        const data = await response.json();
+        const carouselImagesDiv = document.getElementById('carousel-images');
+        carouselImagesDiv.innerHTML = '';
+
+        if (data.results.length > 0) {
+            mainImage.src = data.results[0].urls.small;
+            data.results.forEach(image => {
+                const img = document.createElement('img');
+                img.src = image.urls.thumb;
+                img.addEventListener('click', () => {
+                    mainImage.src = image.urls.small;
+                });
+                carouselImagesDiv.appendChild(img);
+            });
+        }
+    } catch (error) {
+        console.error('Error al obtener imágenes de Unsplash:', error);
+    }
+
+    document.getElementById('modal-scientific-name').textContent = `Nombre científico: ${plant.scientific_name}`;
+    document.getElementById('modal-year').textContent = `Año: ${plant.year || 'No disponible'}`;
+    document.getElementById('modal-bibliography').textContent = `Bibliografía: ${plant.bibliography || 'No disponible'}`;
+    document.getElementById('modal-author').textContent = `Autor: ${plant.author || 'No disponible'}`;
+    document.getElementById('modal-status').textContent = `Estado: ${plant.status || 'No disponible'}`;
+    document.getElementById('modal-family').textContent = `Familia: ${plant.family}`;
+    document.getElementById('modal-genus').textContent = `Género: ${plant.genus || 'No disponible'}`;
+    document.getElementById('modal-synonyms').textContent = `Sinónimos: ${plant.synonyms.map(syn => syn.name || syn).join(', ') || 'No disponible'}`;
+
+
+    document.getElementById('plantModal').style.display = 'block';
+}
 
 async function main() {
     const plantIds = await fetchAllPlantIds();
