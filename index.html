@@ -12,13 +12,14 @@
         <h1>Plantas de la API de Trefle</h1>
 
         <!-- Botones de selección por continente -->
-        <div class="continent-selector">
-            <button onclick="mostrarPorContinente('America')">América</button>
-            <button onclick="mostrarPorContinente('Africa')">África</button>
-            <button onclick="mostrarPorContinente('Asia')">Asia</button>
-            <button onclick="mostrarPorContinente('Europe')">Europa</button>
-            <button onclick="mostrarPorContinente('Oceania')">Oceanía</button>
+        <div class="continent-selector" id="continent-buttons">
+            <button onclick="mostrarPorContinente('America', this)">América</button>
+            <button onclick="mostrarPorContinente('Africa', this)">África</button>
+            <button onclick="mostrarPorContinente('Asia', this)">Asia</button>
+            <button onclick="mostrarPorContinente('Europe', this)">Europa</button>
+            <button onclick="mostrarPorContinente('Oceania', this)">Oceanía</button>
         </div>
+
 
         <!-- Lista de plantas -->
         <div id="plants-list" class="plants-list"></div>
