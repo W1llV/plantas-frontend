@@ -101,4 +101,25 @@ body {
     display: block; /* Comportamiento de bloque */
     margin: 0 auto 20px; /* Centra la imagen */
 }
+.continent-selector {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
 
+.continent-selector button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.continent-selector button:hover {
+    background-color: #45a049;
+}
