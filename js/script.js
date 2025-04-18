@@ -234,3 +234,38 @@ window.onclick = function(event) {
 
 // Llama a la función principal para iniciar el proceso
 main();
+
+function mostrarPorContinente(continent) {
+    const resultsDiv = document.getElementById('plants-list');
+    resultsDiv.innerHTML = ''; // Limpiar resultados anteriores
+
+    const plants = validContinents[continent];
+    if (!plants || plants.length === 0) {
+        resultsDiv.innerHTML = `<p>No se encontraron plantas en ${continent}.</p>`;
+        return;
+    }
+
+    plants.forEach(plant => {
+        const plantCard = document.createElement('div');
+        plantCard.classList.add('plant-card');
+
+        const plantImage = document.createElement('div');
+        plantImage.classList.add('plant-image');
+        const img = document.createElement('img');
+        img.src = plant.image_url || 'https://via.placeholder.com/150';
+        plantImage.appendChild(img);
+
+        const plantInfo = document.createElement('div');
+        plantInfo.classList.add('plant-info');
+        plantInfo.textContent = plant.common_name || plant.scientific_name;
+
+        plantCard.appendChild(plantImage);
+        plantCard.appendChild(plantInfo);
+
+        plantCard.onclick = () => {
+            openPlantModal(plant);
+        };
+
+        resultsDiv.appendChild(plantCard);
+    });
+}
