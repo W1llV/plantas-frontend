@@ -119,54 +119,46 @@ function isInContinent(countryCode, continent) {
     return paisesPorContinente[continent]?.includes(countryCode);
 }
 
-function displayResultsByContinent() {
+function mostrarPorContinente(continent, buttonElement) {
     const resultsDiv = document.getElementById('plants-list');
     resultsDiv.innerHTML = ''; // Limpiar resultados anteriores
 
-    const displayedIds = new Set(); // Conjunto para almacenar IDs mostrados
-
-    for (const [continent, plants] of Object.entries(validContinents)) {
-        const continentSection = document.createElement('div');
-        continentSection.innerHTML = `<h3>${continent}</h3>`;
-        
-        if (plants.length === 0) {
-            continentSection.innerHTML += `<p>No se encontraron plantas en ${continent}.</p>`;
-        } else {
-            plants.forEach(plant => {
-                const plantId = plant.id; // Asegúrate de que cada planta tenga un ID único
-
-                // Solo mostrar la planta si no ha sido mostrada
-                if (!displayedIds.has(plantId)) {
-                    const plantName = plant.common_name || plant.scientific_name;
-                    const plantCard = document.createElement('div');
-                    plantCard.classList.add('plant-card');
-
-                    const plantImage = document.createElement('div');
-                    plantImage.classList.add('plant-image');
-                    const img = document.createElement('img');
-                    img.src = plant.image_url || 'https://via.placeholder.com/150';
-                    plantImage.appendChild(img);
-
-                    const plantInfo = document.createElement('div');
-                    plantInfo.classList.add('plant-info');
-                    plantInfo.textContent = plantName;
-
-                    plantCard.appendChild(plantImage);
-                    plantCard.appendChild(plantInfo);
-
-                    // Agregar evento de clic para abrir el modal
-                    plantCard.onclick = () => {
-                        openPlantModal(plant); // Llamar a la función para abrir el modal
-                    };
-
-                    continentSection.appendChild(plantCard);
-                    displayedIds.add(plantId); // Agregar ID al conjunto de mostrados
-                }
-            });
-        }
-
-        resultsDiv.appendChild(continentSection);
+    // Resaltar el botón seleccionado
+    const allButtons = document.querySelectorAll('#continent-buttons button');
+    allButtons.forEach(btn => btn.classList.remove('active'));
+    if (buttonElement) {
+        buttonElement.classList.add('active');
     }
+
+    const plants = validContinents[continent];
+    if (!plants || plants.length === 0) {
+        resultsDiv.innerHTML = `<p>No se encontraron plantas en ${continent}.</p>`;
+        return;
+    }
+
+    plants.forEach(plant => {
+        const plantCard = document.createElement('div');
+        plantCard.classList.add('plant-card');
+
+        const plantImage = document.createElement('div');
+        plantImage.classList.add('plant-image');
+        const img = document.createElement('img');
+        img.src = plant.image_url || 'https://via.placeholder.com/150';
+        plantImage.appendChild(img);
+
+        const plantInfo = document.createElement('div');
+        plantInfo.classList.add('plant-info');
+        plantInfo.textContent = plant.common_name || plant.scientific_name;
+
+        plantCard.appendChild(plantImage);
+        plantCard.appendChild(plantInfo);
+
+        plantCard.onclick = () => {
+            openPlantModal(plant);
+        };
+
+        resultsDiv.appendChild(plantCard);
+    });
 }
 
 async function openPlantModal(plant) {
@@ -205,7 +197,6 @@ async function openPlantModal(plant) {
     document.getElementById('modal-genus').textContent = `Género: ${plant.genus || 'No disponible'}`;
     document.getElementById('modal-synonyms').textContent = `Sinónimos: ${plant.synonyms.map(syn => syn.name || syn).join(', ') || 'No disponible'}`;
 
-
     document.getElementById('plantModal').style.display = 'block';
 }
 
@@ -217,7 +208,10 @@ async function main() {
     }
     const plantDetails = await fetchPlantDetailsById(plantIds);
     classifyPlantsByContinent(plantDetails);
-    displayResultsByContinent();
+
+    // Seleccionar América por defecto
+    const americaBtn = document.querySelector('button[onclick*="America"]');
+    mostrarPorContinente('America', americaBtn);
 }
 
 // Modal close functionality
@@ -232,40 +226,5 @@ window.onclick = function(event) {
     }
 };
 
-// Llama a la función principal para iniciar el proceso
+// Ejecutar
 main();
-
-function mostrarPorContinente(continent) {
-    const resultsDiv = document.getElementById('plants-list');
-    resultsDiv.innerHTML = ''; // Limpiar resultados anteriores
-
-    const plants = validContinents[continent];
-    if (!plants || plants.length === 0) {
-        resultsDiv.innerHTML = `<p>No se encontraron plantas en ${continent}.</p>`;
-        return;
-    }
-
-    plants.forEach(plant => {
-        const plantCard = document.createElement('div');
-        plantCard.classList.add('plant-card');
-
-        const plantImage = document.createElement('div');
-        plantImage.classList.add('plant-image');
-        const img = document.createElement('img');
-        img.src = plant.image_url || 'https://via.placeholder.com/150';
-        plantImage.appendChild(img);
-
-        const plantInfo = document.createElement('div');
-        plantInfo.classList.add('plant-info');
-        plantInfo.textContent = plant.common_name || plant.scientific_name;
-
-        plantCard.appendChild(plantImage);
-        plantCard.appendChild(plantInfo);
-
-        plantCard.onclick = () => {
-            openPlantModal(plant);
-        };
-
-        resultsDiv.appendChild(plantCard);
-    });
-}
