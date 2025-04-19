@@ -56,6 +56,8 @@ async function fetchPlantDetailsById(ids) {
 }
 
 function classifyPlantsByContinent(plants) {
+    const seenIds = new Set();
+
     validContinents.America = [];
     validContinents.Africa = [];
     validContinents.Asia = [];
@@ -65,17 +67,17 @@ function classifyPlantsByContinent(plants) {
     plants.forEach(plant => {
         const nativeCountries = plant.distribution?.native || [];
 
+        let addedToContinent = new Set();
+
         nativeCountries.forEach(country => {
-            if (isInContinent(country, "America")) {
-                validContinents.America.push(plant);
-            } else if (isInContinent(country, "Africa")) {
-                validContinents.Africa.push(plant);
-            } else if (isInContinent(country, "Asia")) {
-                validContinents.Asia.push(plant);
-            } else if (isInContinent(country, "Europe")) {
-                validContinents.Europe.push(plant);
-            } else if (isInContinent(country, "Oceania")) {
-                validContinents.Oceania.push(plant);
+            for (const continent of Object.keys(validContinents)) {
+                if (!addedToContinent.has(continent) && isInContinent(country, continent)) {
+                    // Evita repetir la misma planta en el mismo continente
+                    if (!validContinents[continent].some(p => p.id === plant.id)) {
+                        validContinents[continent].push(plant);
+                        addedToContinent.add(continent);
+                    }
+                }
             }
         });
     });
