@@ -21,9 +21,8 @@ async function fetchAllPlantIds(page = 1, allIds = []) {
         const data = await response.json();
         allIds = allIds.concat(data.data.map(plant => plant.id));
 
-        // Llamada recursiva para la siguiente página
         if (data.links.next) {
-            await new Promise(resolve => setTimeout(resolve, 500)); // Esperar medio segundo
+            await new Promise(resolve => setTimeout(resolve, 500));
             return fetchAllPlantIds(page + 1, allIds);
         } else {
             return allIds;
@@ -46,7 +45,7 @@ async function fetchPlantDetailsById(ids) {
             const plant = await response.json();
             allPlants.push(plant);
 
-            await new Promise(resolve => setTimeout(resolve, 100)); // Esperar un poco entre solicitudes
+            await new Promise(resolve => setTimeout(resolve, 100));
         } catch (error) {
             console.error(`Error al obtener detalles de la planta con ID ${id}:`, error);
         }
@@ -56,8 +55,6 @@ async function fetchPlantDetailsById(ids) {
 }
 
 function classifyPlantsByContinent(plants) {
-    const seenIds = new Set();
-
     validContinents.America = [];
     validContinents.Africa = [];
     validContinents.Asia = [];
@@ -66,13 +63,11 @@ function classifyPlantsByContinent(plants) {
 
     plants.forEach(plant => {
         const nativeCountries = plant.distribution?.native || [];
-
         let addedToContinent = new Set();
 
         nativeCountries.forEach(country => {
             for (const continent of Object.keys(validContinents)) {
                 if (!addedToContinent.has(continent) && isInContinent(country, continent)) {
-                    // Evita repetir la misma planta en el mismo continente
                     if (!validContinents[continent].some(p => p.id === plant.id)) {
                         validContinents[continent].push(plant);
                         addedToContinent.add(continent);
@@ -92,30 +87,22 @@ function isInContinent(countryCode, continent) {
             "Mexico Central", "Mexico Gulf", "Mexico Northeast", "Mexico Northwest",
             "Mexico Southeast", "Mexico Southwest"
         ],
-        Africa: [
-            "Nigeria", "South Africa", "Egypt", 
-            "Algeria", "Morocco", "Tunisia"
-        ],
+        Africa: ["Nigeria", "South Africa", "Egypt", "Algeria", "Morocco", "Tunisia"],
         Asia: [
-            "China", "India", "Japan", 
-            "Afghanistan", "Altay", "Amur", "Assam", "East Himalaya", "Inner Mongolia", "Iran", 
-            "Iraq", "Kamchatka", "Kazakhstan", "Khabarovsk", "Kirgizstan", "Korea", 
-            "Lebanon-Syria", "Magadan", "Manchuria", "Mongolia", "Nepal", "Pakistan", 
-            "Primorye", "Qinghai", "Tadzhikistan", "Tibet", "Turkey", "Turkmenistan", "Uzbekistan", 
-            "West Himalaya", "West Siberia", "Xinjiang", "Yakutskiya"
+            "China", "India", "Japan", "Afghanistan", "Altay", "Amur", "Assam", "East Himalaya", "Inner Mongolia", "Iran", 
+            "Iraq", "Kamchatka", "Kazakhstan", "Khabarovsk", "Kirgizstan", "Korea", "Lebanon-Syria", "Magadan", "Manchuria", 
+            "Mongolia", "Nepal", "Pakistan", "Primorye", "Qinghai", "Tadzhikistan", "Tibet", "Turkey", "Turkmenistan", 
+            "Uzbekistan", "West Himalaya", "West Siberia", "Xinjiang", "Yakutskiya"
         ],
         Europe: [
-            "Germany", "France", "Spain", 
-            "Albania", "Austria", "Baltic States", "Belarus", "Belgium", "Bulgaria", "Central European Rus", 
-            "Corse", "Czechoslovakia", "Denmark", "East Aegean Is.", "East European Russia", "Finland", 
-            "Føroyar", "Great Britain", "Greece", "Hungary", "Iceland", "Ireland", "Italy", 
-            "Kriti", "Krym", "Netherlands", "North Caucasus", "North European Russi", "Northwest European R", 
-            "Norway", "Poland", "Portugal", "Romania", "Sardegna", "Sicilia", "South European Russi", 
-            "Sweden", "Switzerland", "Transcaucasus", "Turkey-in-Europe", "Ukraine", "Yugoslavia"
+            "Germany", "France", "Spain", "Albania", "Austria", "Baltic States", "Belarus", "Belgium", "Bulgaria", 
+            "Central European Rus", "Corse", "Czechoslovakia", "Denmark", "East Aegean Is.", "East European Russia", 
+            "Finland", "Føroyar", "Great Britain", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kriti", "Krym", 
+            "Netherlands", "North Caucasus", "North European Russi", "Northwest European R", "Norway", "Poland", "Portugal", 
+            "Romania", "Sardegna", "Sicilia", "South European Russi", "Sweden", "Switzerland", "Transcaucasus", 
+            "Turkey-in-Europe", "Ukraine", "Yugoslavia"
         ],
-        Oceania: [
-            "Australia", "New Zealand"
-        ]
+        Oceania: ["Australia", "New Zealand"]
     };
 
     return paisesPorContinente[continent]?.includes(countryCode);
@@ -123,9 +110,8 @@ function isInContinent(countryCode, continent) {
 
 function mostrarPorContinente(continent, buttonElement) {
     const resultsDiv = document.getElementById('plants-list');
-    resultsDiv.innerHTML = ''; // Limpiar resultados anteriores
+    resultsDiv.innerHTML = '';
 
-    // Resaltar el botón seleccionado
     const allButtons = document.querySelectorAll('#continent-buttons button');
     allButtons.forEach(btn => btn.classList.remove('active'));
     if (buttonElement) {
@@ -190,6 +176,14 @@ async function openPlantModal(plant) {
         console.error('Error al obtener imágenes de Unsplash:', error);
     }
 
+    const paises = plant.distribution?.native || [];
+    const flagEmojis = paises.map(pais => `${getFlagEmoji(pais)} ${pais}`);
+    document.getElementById('modal-countries').innerHTML = `Países nativos:<br>${flagEmojis.join(', ') || 'No disponible'}`;
+
+    const maxSynonyms = plant.synonyms.slice(0, 3);
+    const synonymsText = maxSynonyms.map(syn => syn.name || syn).join(', ') || 'No disponible';
+    document.getElementById('modal-synonyms').textContent = `Sinónimos: ${synonymsText}`;
+
     document.getElementById('modal-scientific-name').textContent = `Nombre científico: ${plant.scientific_name}`;
     document.getElementById('modal-year').textContent = `Año: ${plant.year || 'No disponible'}`;
     document.getElementById('modal-bibliography').textContent = `Bibliografía: ${plant.bibliography || 'No disponible'}`;
@@ -197,9 +191,37 @@ async function openPlantModal(plant) {
     document.getElementById('modal-status').textContent = `Estado: ${plant.status || 'No disponible'}`;
     document.getElementById('modal-family').textContent = `Familia: ${plant.family}`;
     document.getElementById('modal-genus').textContent = `Género: ${plant.genus || 'No disponible'}`;
-    document.getElementById('modal-synonyms').textContent = `Sinónimos: ${plant.synonyms.map(syn => syn.name || syn).join(', ') || 'No disponible'}`;
 
     document.getElementById('plantModal').style.display = 'block';
+}
+
+function getFlagEmoji(countryName) {
+    const countryCodes = {
+        Mexico: 'MX',
+        USA: 'US',
+        Canada: 'CA',
+        Brazil: 'BR',
+        Germany: 'DE',
+        France: 'FR',
+        Spain: 'ES',
+        Italy: 'IT',
+        China: 'CN',
+        India: 'IN',
+        Japan: 'JP',
+        Australia: 'AU',
+        "New Zealand": 'NZ',
+        Nigeria: 'NG',
+        Egypt: 'EG',
+        Morocco: 'MA',
+        Tunisia: 'TN'
+    };
+
+    const code = countryCodes[countryName];
+    if (!code) return countryName;
+
+    return code
+        .toUpperCase()
+        .replace(/./g, char => String.fromCodePoint(127397 + char.charCodeAt()));
 }
 
 async function main() {
@@ -211,12 +233,10 @@ async function main() {
     const plantDetails = await fetchPlantDetailsById(plantIds);
     classifyPlantsByContinent(plantDetails);
 
-    // Seleccionar América por defecto
     const americaBtn = document.querySelector('button[onclick*="America"]');
     mostrarPorContinente('America', americaBtn);
 }
 
-// Modal close functionality
 document.querySelector('.close').onclick = () => {
     document.getElementById('plantModal').style.display = 'none';
 };
@@ -228,5 +248,4 @@ window.onclick = function(event) {
     }
 };
 
-// Ejecutar
 main();
