@@ -146,3 +146,47 @@ body {
     border: 1px solid #ddd;
     border-radius: 2px;
 }
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px 30px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 12px;
+    text-align: left;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+#modal-plant-name {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #2e7d32;
+    font-weight: bold;
+    text-align: center;
+}
+
+.modal-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+    margin-top: 20px;
+}
+
+.modal-info-grid p {
+    margin: 5px 0;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+#modal-countries img {
+    vertical-align: middle;
+    margin-right: 6px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+}
+
+#modal-countries {
+    margin-top: 15px;
+}
