@@ -276,8 +276,6 @@ function getFlagEmoji(countryName) {
         Kazakhstan: '🇰🇿',
         Kenya: '🇰🇪',
         Kiribati: '🇰🇷',
-        Korea (North): '🇰🇵',
-        Korea (South): '🇰🇷',
         Kosovo: '🇽🇰',
         Kuwait: '🇰🇼',
         Kyrgyzstan: '🇰🇬',
