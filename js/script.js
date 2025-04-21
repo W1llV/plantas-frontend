@@ -224,7 +224,6 @@ function getFlagEmoji(countryName) {
         Brazil: '🇧🇷',
         Brunei: '🇧🇳',
         Bulgaria: '🇧🇬',
-        Burkina Faso: '🇧🇫',
         Burundi: '🇧🇮',
         Cabo Verde: '🇨🇻',
         Cambodia: '🇰🇭',
