@@ -80,7 +80,6 @@ body {
 }
 
 /* MODAL */
-
 .modal {
     display: none;
     position: fixed;
@@ -91,8 +90,10 @@ body {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.7);
-    padding: 60px 20px;
+    padding: 40px 20px;
+    box-sizing: border-box;
 }
+
 
 .modal-content {
     background-color: #fff;
@@ -104,10 +105,11 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     position: relative;
     overflow-y: auto;
-    max-height: 90vh;
+    max-height: calc(100vh - 80px); /* Deja margen arriba y abajo */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     animation: slideDown 0.4s ease-out;
 }
+
 
 @keyframes slideDown {
     from {
@@ -122,7 +124,7 @@ body {
 
 .modal-content h2 {
     margin-top: 0;
-    font-size: 28px;
+    font-size: 30px;
     color: #2e7d32;
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
@@ -132,14 +134,24 @@ body {
 .modal-info-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px 20px;
+    gap: 16px;
     margin-top: 20px;
 }
 
 .modal-info-grid p {
-    margin: 5px 0;
+    background-color: #f9f9f9;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    margin: 0;
     font-size: 15px;
     line-height: 1.4;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: background-color 0.3s ease;
+}
+
+.modal-info-grid p:hover {
+    background-color: #f0f0f0;
 }
 
 #modal-countries {
