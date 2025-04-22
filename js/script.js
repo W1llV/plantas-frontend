@@ -416,7 +416,7 @@ async function main() {
     mostrarPorContinente('America', americaBtn);
 }
 
-document.querySelector('.close').onclick = () => {
+document.querySelector('.close-btn').onclick = () => {
     document.getElementById('plantModal').style.display = 'none';
 };
 
