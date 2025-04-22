@@ -80,6 +80,38 @@ body {
 }
 
 /* MODAL */
+@media screen and (max-width: 600px) {
+    .modal-content {
+        padding: 20px;
+        max-height: 90vh;
+        width: 95%;
+    }
+
+    .modal-info-grid {
+        grid-template-columns: 1fr; /* solo una columna en celulares */
+    }
+
+    .carousel img {
+        width: 70px;
+        height: 70px;
+    }
+
+    #modal-main-image {
+        max-height: 250px;
+    }
+
+    .close-btn {
+        top: 12px;
+        right: 16px;
+        font-size: 26px;
+    }
+
+    #modal-countries {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -146,18 +178,34 @@ body {
     margin: 0;
     font-size: 15px;
     line-height: 1.4;
+    color: #2e7d32;
+    font-weight: 500;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .modal-info-grid p:hover {
-    background-color: #f0f0f0;
+    background-color: #e8f5e9; /* verde muy claro */
+    color: #1b5e20; /* verde más oscuro en hover */
 }
 
 #modal-countries {
     margin-top: 20px;
+    padding: 12px 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    color: #2e7d32;
     font-size: 15px;
     line-height: 1.6;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#modal-countries:hover {
+    background-color: #e8f5e9;
+    color: #1b5e20;
 }
 
 #modal-countries img {
