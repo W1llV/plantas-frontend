@@ -108,7 +108,6 @@ function isInContinent(countryCode, continent) {
     return paisesPorContinente[continent]?.includes(countryCode);
 }
 
-
 function resaltarContinente(continenteId) {
     const regiones = document.querySelectorAll('.continent-shape');
     regiones.forEach(region => region.classList.remove('active'));
@@ -118,7 +117,6 @@ function resaltarContinente(continenteId) {
         activo.classList.add('active');
     }
 }
-
 
 function mostrarPorContinente(continent, buttonElement) {
     const resultsDiv = document.getElementById('plants-list');
@@ -133,6 +131,7 @@ function mostrarPorContinente(continent, buttonElement) {
     const plants = validContinents[continent];
     if (!plants || plants.length === 0) {
         resultsDiv.innerHTML = `<p>No se encontraron plantas en ${continent}.</p>`;
+        resaltarContinente(continent);
         return;
     }
 
@@ -158,8 +157,9 @@ function mostrarPorContinente(continent, buttonElement) {
         };
 
         resultsDiv.appendChild(plantCard);
-resaltarContinente(continent);
     });
+
+    resaltarContinente(continent);
 }
 
 async function openPlantModal(plant) {
