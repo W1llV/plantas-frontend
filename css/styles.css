@@ -1,3 +1,4 @@
+/* ----------- GENERAL ----------- */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -14,6 +15,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* ----------- BOTONES DE CONTINENTE ----------- */
 .continent-selector {
     display: flex;
     justify-content: space-around;
@@ -42,76 +44,57 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+/* ----------- TARJETAS DE PLANTAS ----------- */
 .plants-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
 }
 
 .plant-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: none;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    height: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     background-color: #fff;
-    transition: transform 0.2s ease;
+    position: relative;
 }
 
 .plant-card:hover {
-    transform: scale(1.02);
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.plant-info {
-    flex-grow: 1;
-    padding: 10px;
-    font-weight: bold;
-    font-size: 16px;
-    text-align: center;
+.plant-image {
+    position: relative;
+    width: 100%;
+    height: 220px;
 }
 
 .plant-image img {
     width: 100%;
-    height: 200px;
+    height: 100%;
     object-fit: cover;
+    display: block;
 }
 
-/* MODAL */
-@media screen and (max-width: 600px) {
-    .modal-content {
-        padding: 20px;
-        max-height: 90vh;
-        width: 95%;
-    }
-
-    .modal-info-grid {
-        grid-template-columns: 1fr; /* solo una columna en celulares */
-    }
-
-    .carousel img {
-        width: 70px;
-        height: 70px;
-    }
-
-    #modal-main-image {
-        max-height: 250px;
-    }
-
-    .close-btn {
-        top: 12px;
-        right: 16px;
-        font-size: 26px;
-    }
-
-    #modal-countries {
-        font-size: 14px;
-        padding: 10px;
-    }
+.plant-info {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 12px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
+/* ----------- MODAL ----------- */
 .modal {
     display: none;
     position: fixed;
@@ -126,7 +109,6 @@ body {
     box-sizing: border-box;
 }
 
-
 .modal-content {
     background-color: #fff;
     margin: auto;
@@ -137,11 +119,10 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     position: relative;
     overflow-y: auto;
-    max-height: calc(100vh - 80px); /* Deja margen arriba y abajo */
+    max-height: calc(100vh - 80px);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     animation: slideDown 0.4s ease-out;
 }
-
 
 @keyframes slideDown {
     from {
@@ -185,8 +166,8 @@ body {
 }
 
 .modal-info-grid p:hover {
-    background-color: #e8f5e9; /* verde muy claro */
-    color: #1b5e20; /* verde más oscuro en hover */
+    background-color: #e8f5e9;
+    color: #1b5e20;
 }
 
 #modal-countries {
@@ -241,6 +222,7 @@ body {
     margin: 20px 0;
 }
 
+/* ----------- CARRUSEL ----------- */
 .carousel {
     display: flex;
     gap: 10px;
@@ -261,4 +243,41 @@ body {
 
 .carousel img:hover {
     border: 2px solid #2e7d32;
+}
+
+/* ----------- RESPONSIVE ----------- */
+@media screen and (max-width: 768px) {
+    .plants-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .modal-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .carousel img {
+        width: 70px;
+        height: 70px;
+    }
+
+    #modal-main-image {
+        max-height: 250px;
+    }
+
+    .close-btn {
+        top: 12px;
+        right: 16px;
+        font-size: 26px;
+    }
+
+    #modal-countries {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .plants-list {
+        grid-template-columns: 1fr;
+    }
 }
