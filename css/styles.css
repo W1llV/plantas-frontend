@@ -281,3 +281,28 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+
+/*--------MAPA--------*/
+.map-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 20px;
+}
+
+#continent-map {
+    width: 100%;
+    height: auto;
+}
+
+.continent-shape {
+    fill: #ccc;
+    stroke: #666;
+    stroke-width: 1.5;
+    transition: fill 0.3s ease;
+}
+
+.continent-shape.active {
+    fill: #2e7d32;
+    stroke: #1b5e20;
+}
