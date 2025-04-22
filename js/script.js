@@ -108,6 +108,18 @@ function isInContinent(countryCode, continent) {
     return paisesPorContinente[continent]?.includes(countryCode);
 }
 
+
+function resaltarContinente(continenteId) {
+    const regiones = document.querySelectorAll('.continent-shape');
+    regiones.forEach(region => region.classList.remove('active'));
+
+    const activo = document.getElementById(continenteId);
+    if (activo) {
+        activo.classList.add('active');
+    }
+}
+
+
 function mostrarPorContinente(continent, buttonElement) {
     const resultsDiv = document.getElementById('plants-list');
     resultsDiv.innerHTML = '';
@@ -146,6 +158,7 @@ function mostrarPorContinente(continent, buttonElement) {
         };
 
         resultsDiv.appendChild(plantCard);
+resaltarContinente(continent);
     });
 }
 
