@@ -6,6 +6,36 @@ const validContinents = {
     "Oceania": []
 };
 
+const paisesPorContinente = {
+  America: [
+    "AG", "AI", "AR", "AW", "BB", "BL", "BO", "BR", "BS", "BZ", "CA", "CL", "CO", "CR", "CU", "DM",
+    "DO", "EC", "GD", "GF", "GL", "GP", "GT", "GY", "HN", "HT", "JM", "KN", "LC", "MF", "MQ", "MS",
+    "MX", "NI", "PA", "PE", "PM", "PR", "PY", "SR", "SV", "TC", "TT", "US", "UY", "VC", "VE", "VG",
+    "VI"
+  ],
+  Europe: [
+    "AD", "AL", "AM", "AT", "AZ", "BA", "BE", "BG", "BY", "CH", "CY", "CZ", "DE", "DK", "EE", "ES",
+    "FI", "FO", "FR", "GB", "GE", "GI", "GR", "HR", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV",
+    "MC", "MD", "ME", "MK", "MT", "NL", "NO", "PL", "PT", "RO", "RS", "RU", "SE", "SI", "SJ", "SK",
+    "SM", "UA", "VA", "XK"
+  ],
+  Africa: [
+    "AO", "BF", "BI", "BJ", "BW", "CD", "CF", "CG", "CI", "CM", "CV", "DJ", "DZ", "EG", "EH", "ER",
+    "ET", "GA", "GH", "GM", "GN", "GQ", "GW", "KE", "KM", "LR", "LS", "LY", "MA", "MG", "ML", "MR",
+    "MU", "MW", "MZ", "NA", "NE", "NG", "RE", "RW", "SC", "SD", "SH", "SL", "SN", "SO", "SS", "ST",
+    "SZ", "TD", "TG", "TN", "TZ", "UG", "YT", "ZA", "ZM", "ZW"
+  ],
+  Asia: [
+    "AE", "AF", "BD", "BH", "BN", "BT", "CN", "ID", "IL", "IN", "IQ", "IR", "JO", "JP", "KG", "KH",
+    "KP", "KR", "KW", "KZ", "LA", "LB", "LK", "MM", "MN", "MO", "MV", "MY", "NP", "OM", "PH", "PK",
+    "PS", "QA", "SA", "SG", "SY", "TH", "TJ", "TM", "TR", "TW", "UZ", "VN", "YE"
+  ],
+  Oceania: [
+    "AS", "AU", "CK", "FJ", "FM", "GU", "KI", "MH", "MP", "NC", "NF", "NR", "NU", "NZ", "PF", "PG",
+    "PN", "PW", "SB", "TK", "TL", "TO", "TV", "UM", "VU", "WF", "WS"
+  ]
+};
+
 async function fetchAllPlantIds(page = 1, allIds = []) {
     if (page > 3) {
         return allIds;
@@ -80,42 +110,62 @@ function classifyPlantsByContinent(plants) {
     return validContinents;
 }
 
-function isInContinent(countryCode, continent) {
+function isInContinent(countryName, continent) {
     const paisesPorContinente = {
         America: [
-            "Mexico", "USA", "Canada", "Brazil",
-            "Mexico Central", "Mexico Gulf", "Mexico Northeast", "Mexico Northwest",
-            "Mexico Southeast", "Mexico Southwest"
-        ],
-        Africa: ["Nigeria", "South Africa", "Egypt", "Algeria", "Morocco", "Tunisia"],
-        Asia: [
-            "China", "India", "Japan", "Afghanistan", "Altay", "Amur", "Assam", "East Himalaya", "Inner Mongolia", "Iran", 
-            "Iraq", "Kamchatka", "Kazakhstan", "Khabarovsk", "Kirgizstan", "Korea", "Lebanon-Syria", "Magadan", "Manchuria", 
-            "Mongolia", "Nepal", "Pakistan", "Primorye", "Qinghai", "Tadzhikistan", "Tibet", "Turkey", "Turkmenistan", 
-            "Uzbekistan", "West Himalaya", "West Siberia", "Xinjiang", "Yakutskiya"
+            "Antigua and Barbuda", "Argentina", "Bahamas", "Barbados", "Belize", "Bolivia", "Brazil", "Canada",
+            "Chile", "Colombia", "Costa Rica", "Cuba", "Dominica", "Dominican Republic", "Ecuador", "El Salvador",
+            "Grenada", "Guatemala", "Guyana", "Haiti", "Honduras", "Jamaica", "Mexico", "Nicaragua", "Panama",
+            "Paraguay", "Peru", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines",
+            "Suriname", "Trinidad and Tobago", "United States", "Uruguay", "Venezuela"
         ],
         Europe: [
-            "Germany", "France", "Spain", "Albania", "Austria", "Baltic States", "Belarus", "Belgium", "Bulgaria", 
-            "Central European Rus", "Corse", "Czechoslovakia", "Denmark", "East Aegean Is.", "East European Russia", 
-            "Finland", "Føroyar", "Great Britain", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kriti", "Krym", 
-            "Netherlands", "North Caucasus", "North European Russi", "Northwest European R", "Norway", "Poland", "Portugal", 
-            "Romania", "Sardegna", "Sicilia", "South European Russi", "Sweden", "Switzerland", "Transcaucasus", 
-            "Turkey-in-Europe", "Ukraine", "Yugoslavia"
+            "Albania", "Andorra", "Armenia", "Austria", "Azerbaijan", "Belarus", "Belgium", "Bosnia and Herzegovina",
+            "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Georgia",
+            "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein",
+            "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia",
+            "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia",
+            "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"
         ],
-        Oceania: ["Australia", "New Zealand"]
+        Africa: [
+            "Algeria", "Angola", "Benin", "Botswana", "Burkina Faso", "Burundi", "Cabo Verde", "Cameroon",
+            "Central African Republic", "Chad", "Comoros", "Congo", "Democratic Republic of the Congo", "Djibouti",
+            "Egypt", "Equatorial Guinea", "Eritrea", "Eswatini", "Ethiopia", "Gabon", "Gambia", "Ghana", "Guinea",
+            "Guinea-Bissau", "Ivory Coast", "Kenya", "Lesotho", "Liberia", "Libya", "Madagascar", "Malawi", "Mali",
+            "Mauritania", "Mauritius", "Morocco", "Mozambique", "Namibia", "Niger", "Nigeria", "Rwanda",
+            "Sao Tome and Principe", "Senegal", "Seychelles", "Sierra Leone", "Somalia", "South Africa",
+            "South Sudan", "Sudan", "Tanzania", "Togo", "Tunisia", "Uganda", "Zambia", "Zimbabwe"
+        ],
+        Asia: [
+            "Afghanistan", "Armenia", "Azerbaijan", "Bahrain", "Bangladesh", "Bhutan", "Brunei", "Cambodia", "China",
+            "Cyprus", "East Timor", "Georgia", "India", "Indonesia", "Iran", "Iraq", "Israel", "Japan", "Jordan",
+            "Kazakhstan", "Kuwait", "Kyrgyzstan", "Laos", "Lebanon", "Malaysia", "Maldives", "Mongolia", "Myanmar",
+            "Nepal", "North Korea", "Oman", "Pakistan", "Palestine", "Philippines", "Qatar", "Russia", "Saudi Arabia",
+            "Singapore", "South Korea", "Sri Lanka", "Syria", "Tajikistan", "Thailand", "Turkey", "Turkmenistan",
+            "United Arab Emirates", "Uzbekistan", "Vietnam", "Yemen"
+        ],
+        Oceania: [
+            "Australia", "Fiji", "Kiribati", "Marshall Islands", "Micronesia", "Nauru", "New Zealand", "Palau",
+            "Papua New Guinea", "Samoa", "Solomon Islands", "Tonga", "Tuvalu", "Vanuatu"
+        ]
     };
 
-    return paisesPorContinente[continent]?.includes(countryCode);
+    return paisesPorContinente[continent]?.includes(countryName);
 }
 
 function resaltarContinente(continenteId) {
-    const regiones = document.querySelectorAll('.continent-shape');
-    regiones.forEach(region => region.classList.remove('active'));
+    const allCountries = document.querySelectorAll('.map-container path');
+    allCountries.forEach(p => p.classList.remove('active'));
 
-    const activo = document.getElementById(continenteId);
-    if (activo) {
-        activo.classList.add('active');
-    }
+    const codes = paisesPorContinente[continenteId];
+    if (!codes) return;
+
+    codes.forEach(code => {
+        const country = document.getElementById(code);
+        if (country) {
+            country.classList.add('active');
+        }
+    });
 }
 
 function mostrarPorContinente(continent, buttonElement) {
