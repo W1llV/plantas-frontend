@@ -11,7 +11,7 @@ const paisesPorContinente = {
     "AG", "AI", "AR", "AW", "BB", "BL", "BO", "BR", "BS", "BZ", "CA", "CL", "CO", "CR", "CU", "DM",
     "DO", "EC", "GD", "GF", "GL", "GP", "GT", "GY", "HN", "HT", "JM", "KN", "LC", "MF", "MQ", "MS",
     "MX", "NI", "PA", "PE", "PM", "PR", "PY", "SR", "SV", "TC", "TT", "US", "UY", "VC", "VE", "VG",
-    "VI"
+    "VI", "BQBO", "BQSE", "BQSA", "AW", "AI"
   ],
   Europe: [
     "AD", "AL", "AM", "AT", "AZ", "BA", "BE", "BG", "BY", "CH", "CY", "CZ", "DE", "DK", "EE", "ES",
