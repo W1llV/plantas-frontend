@@ -160,16 +160,31 @@ async function openPlantModal(plant) {
 
 function getCountryCode(name) {
     const map = {
-        Mexico: 'MX', USA: 'US', Canada: 'CA', Brazil: 'BR',
-        Germany: 'DE', France: 'FR', Spain: 'ES', Italy: 'IT', China: 'CN', India: 'IN',
-        Japan: 'JP', Australia: 'AU', "New Zealand": 'NZ', Nigeria: 'NG', Egypt: 'EG',
-        Morocco: 'MA', Tunisia: 'TN', Afghanistan: 'AF', Albania: 'AL', Austria: 'AT',
-        Denmark: 'DK', Greece: 'GR', Iceland: 'IS', Iran: 'IR', Iraq: 'IQ', Lebanon: 'LB',
-        Mongolia: 'MN', Nepal: 'NP', Pakistan: 'PK', Portugal: 'PT', Sweden: 'SE',
-        Switzerland: 'CH', Turkey: 'TR', Ukraine: 'UA', Uzbekistan: 'UZ'
+        // Países ISO
+        Mexico: 'MX', Canada: 'CA', USA: 'US', Brazil: 'BR', Germany: 'DE',
+        France: 'FR', Spain: 'ES', Italy: 'IT', India: 'IN', Japan: 'JP',
+        China: 'CN', Afghanistan: 'AF', Austria: 'AT', Denmark: 'DK',
+        Iran: 'IR', Iraq: 'IQ', Russia: 'RU', Portugal: 'PT', Uzbekistan: 'UZ',
+        Norway: 'NO', Algeria: 'DZ', Switzerland: 'CH', Ukraine: 'UA',
+        Albania: 'AL', Sweden: 'SE', Turkey: 'TR', Tunisia: 'TN', Egypt: 'EG',
+        Morocco: 'MA', Nigeria: 'NG', Australia: 'AU', 'New Zealand': 'NZ',
+
+        Alabama: 'us-al',
+        Alaska: 'us-ak',
+
+        'Nova Scotia': 'ca-ns',
+        'Northwest Territorie': 'ca-nt',
+        'British Columbia': 'ca-bc',
+        'Newfoundland': 'ca-nl',
+
+        'Azores': 'PT',
+        'Altay': 'RU',
+        'Baltic States': 'EE' 
     };
+
     return map[name];
 }
+
 
 document.querySelector('.close-btn').onclick = () => {
     document.getElementById('plantModal').style.display = 'none';
