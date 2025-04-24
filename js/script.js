@@ -160,31 +160,58 @@ async function openPlantModal(plant) {
 
 function getCountryCode(name) {
     const map = {
-        // Países ISO
-        Mexico: 'MX', Canada: 'CA', USA: 'US', Brazil: 'BR', Germany: 'DE',
-        France: 'FR', Spain: 'ES', Italy: 'IT', India: 'IN', Japan: 'JP',
-        China: 'CN', Afghanistan: 'AF', Austria: 'AT', Denmark: 'DK',
-        Iran: 'IR', Iraq: 'IQ', Russia: 'RU', Portugal: 'PT', Uzbekistan: 'UZ',
-        Norway: 'NO', Algeria: 'DZ', Switzerland: 'CH', Ukraine: 'UA',
-        Albania: 'AL', Sweden: 'SE', Turkey: 'TR', Tunisia: 'TN', Egypt: 'EG',
-        Morocco: 'MA', Nigeria: 'NG', Australia: 'AU', 'New Zealand': 'NZ',
-
-        Alabama: 'us-al',
-        Alaska: 'us-ak',
-
-        'Nova Scotia': 'ca-ns',
-        'Northwest Territorie': 'ca-nt',
-        'British Columbia': 'ca-bc',
-        'Newfoundland': 'ca-nl',
-
-        'Azores': 'PT',
-        'Altay': 'RU',
-        'Baltic States': 'EE' 
+        "Kosovo": "XK",
+        "England": "gb-eng",
+        "Scotland": "gb-sct",
+        "Wales": "gb-wls",
+        "Northern Ireland": "gb-nir",
+        "Alabama": "us-al",
+        "Alaska": "us-ak",
+        "Nova Scotia": "ca-ns",
+        "Northwest Territorie": "ca-nt",
+        "Azores": "PT",
+        "Altay": "RU",
+        "Baltic States": "EE",
+    };
+    
+    const isoCountries = {
+        "Afghanistan": "AF", "Albania": "AL", "Algeria": "DZ", "Andorra": "AD", "Angola": "AO",
+        "Argentina": "AR", "Armenia": "AM", "Australia": "AU", "Austria": "AT", "Azerbaijan": "AZ",
+        "Bahamas": "BS", "Bahrain": "BH", "Bangladesh": "BD", "Barbados": "BB", "Belarus": "BY",
+        "Belgium": "BE", "Belize": "BZ", "Benin": "BJ", "Bhutan": "BT", "Bolivia": "BO",
+        "Bosnia and Herzegovina": "BA", "Botswana": "BW", "Brazil": "BR", "Brunei": "BN",
+        "Bulgaria": "BG", "Burkina Faso": "BF", "Burundi": "BI", "Cambodia": "KH", "Cameroon": "CM",
+        "Canada": "CA", "Cape Verde": "CV", "Central African Republic": "CF", "Chad": "TD",
+        "Chile": "CL", "China": "CN", "Colombia": "CO", "Comoros": "KM", "Costa Rica": "CR",
+        "Croatia": "HR", "Cuba": "CU", "Cyprus": "CY", "Czech Republic": "CZ", "Denmark": "DK",
+        "Djibouti": "DJ", "Dominican Republic": "DO", "Ecuador": "EC", "Egypt": "EG", "El Salvador": "SV",
+        "Estonia": "EE", "Ethiopia": "ET", "Finland": "FI", "France": "FR", "Gabon": "GA",
+        "Georgia": "GE", "Germany": "DE", "Ghana": "GH", "Greece": "GR", "Greenland": "GL",
+        "Guatemala": "GT", "Guinea": "GN", "Guyana": "GY", "Haiti": "HT", "Honduras": "HN",
+        "Hungary": "HU", "Iceland": "IS", "India": "IN", "Indonesia": "ID", "Iran": "IR",
+        "Iraq": "IQ", "Ireland": "IE", "Israel": "IL", "Italy": "IT", "Jamaica": "JM",
+        "Japan": "JP", "Jordan": "JO", "Kazakhstan": "KZ", "Kenya": "KE", "Kuwait": "KW",
+        "Kyrgyzstan": "KG", "Laos": "LA", "Latvia": "LV", "Lebanon": "LB", "Lesotho": "LS",
+        "Liberia": "LR", "Lithuania": "LT", "Luxembourg": "LU", "Madagascar": "MG", "Malawi": "MW",
+        "Malaysia": "MY", "Maldives": "MV", "Mali": "ML", "Malta": "MT", "Mauritania": "MR",
+        "Mexico": "MX", "Moldova": "MD", "Monaco": "MC", "Mongolia": "MN", "Montenegro": "ME",
+        "Morocco": "MA", "Mozambique": "MZ", "Namibia": "NA", "Nepal": "NP", "Netherlands": "NL",
+        "New Zealand": "NZ", "Nicaragua": "NI", "Niger": "NE", "Nigeria": "NG", "North Korea": "KP",
+        "North Macedonia": "MK", "Norway": "NO", "Oman": "OM", "Pakistan": "PK", "Panama": "PA",
+        "Papua New Guinea": "PG", "Paraguay": "PY", "Peru": "PE", "Philippines": "PH",
+        "Poland": "PL", "Portugal": "PT", "Qatar": "QA", "Romania": "RO", "Russia": "RU",
+        "Rwanda": "RW", "Saudi Arabia": "SA", "Senegal": "SN", "Serbia": "RS", "Singapore": "SG",
+        "Slovakia": "SK", "Slovenia": "SI", "Somalia": "SO", "South Africa": "ZA", "South Korea": "KR",
+        "Spain": "ES", "Sri Lanka": "LK", "Sudan": "SD", "Suriname": "SR", "Sweden": "SE",
+        "Switzerland": "CH", "Syria": "SY", "Taiwan": "TW", "Tajikistan": "TJ", "Tanzania": "TZ",
+        "Thailand": "TH", "Togo": "TG", "Trinidad and Tobago": "TT", "Tunisia": "TN", "Turkey": "TR",
+        "Turkmenistan": "TM", "Uganda": "UG", "Ukraine": "UA", "United Arab Emirates": "AE",
+        "United Kingdom": "GB", "United States": "US", "Uruguay": "UY", "Uzbekistan": "UZ",
+        "Venezuela": "VE", "Vietnam": "VN", "Yemen": "YE", "Zambia": "ZM", "Zimbabwe": "ZW"
     };
 
-    return map[name];
+    return map[name] || isoCountries[name];
 }
-
 
 document.querySelector('.close-btn').onclick = () => {
     document.getElementById('plantModal').style.display = 'none';
