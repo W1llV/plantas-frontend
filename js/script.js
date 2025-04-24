@@ -223,11 +223,13 @@ window.onclick = (e) => {
 };
 
 async function main() {
+    document.getElementById('loading-spinner').style.display = 'flex';
     const ids = await fetchAllPlantIds();
     const plants = await fetchPlantDetailsById(ids);
     classifyPlantsByContinent(plants);
     const btn = document.querySelector('button[onclick*="America"]');
     mostrarPorContinente('America', btn);
+    document.getElementById('loading-spinner').style.display = 'none';
 }
 
 main();
