@@ -1,7 +1,7 @@
 /* ----------- GENERAL ----------- */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #111111;
     margin: 0;
     padding: 20px;
 }
@@ -24,10 +24,10 @@ body {
 }
 
 .map-container img {
-    width: 100%;
+    width: auto;
     height: auto;
     border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    /*box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);*/
     object-fit: cover;
 }
 
