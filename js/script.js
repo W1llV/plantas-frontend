@@ -116,6 +116,9 @@ function mostrarPorContinente(continent, buttonElement) {
         plantImage.classList.add('plant-image');
         const img = document.createElement('img');
         img.src = plant.image_url || 'https://via.placeholder.com/150';
+        img.onerror = () => {
+            img.src = 'https://via.placeholder.com/150';
+        };
         plantImage.appendChild(img);
 
         const plantInfo = document.createElement('div');
