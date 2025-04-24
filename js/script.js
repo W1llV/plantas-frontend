@@ -90,7 +90,7 @@ function mostrarPorContinente(continent, buttonElement) {
         const img = document.createElement('img');
         img.src = plant.image_url || 'https://via.placeholder.com/150';
         img.onerror = () => {
-            img.src = 'img/imgrota.jpg';
+            img.src = 'img/imgrota.png';
         };
         imageDiv.appendChild(img);
 
