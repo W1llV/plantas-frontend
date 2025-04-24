@@ -72,7 +72,6 @@ body {
 }
 .continent-selector button[data-continent="Asia"] {
     background-color: #f0c72c;
-    color: #000;
 }
 .continent-selector button[data-continent="Oceania"] {
     background-color: #945cbf;
