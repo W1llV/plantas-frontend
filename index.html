@@ -8,6 +8,8 @@
 </head>
 <body>
   <div class="container">
+    <!-- titulo -->
+    <h1 class="page-title"> Plantas del Mundo </h1>
 
     <!-- Mapa como imagen -->
     <div class="map-container">
@@ -16,11 +18,11 @@
 
     <!-- Botones por continente -->
     <div id="continent-buttons" class="continent-selector">
-      <button onclick="mostrarPorContinente('America', this)">América</button>
-      <button onclick="mostrarPorContinente('Europe', this)">Europa</button>
-      <button onclick="mostrarPorContinente('Africa', this)">África</button>
-      <button onclick="mostrarPorContinente('Asia', this)">Asia</button>
-      <button onclick="mostrarPorContinente('Oceania', this)">Oceanía</button>
+      <button onclick="mostrarPorContinente('America', this)" data-continent="America">América</button>
+      <button onclick="mostrarPorContinente('Europe', this)" data-continent="Europa">Europa</button>
+      <button onclick="mostrarPorContinente('Africa', this)" data-continent="África">África</button>
+      <button onclick="mostrarPorContinente('Asia', this)" data-continent="Asia">Asia</button>
+      <button onclick="mostrarPorContinente('Oceania', this)" data-continent="Oceanía">Oceanía</button>
     </div>
 
     <!-- Contenedor para las plantas -->
