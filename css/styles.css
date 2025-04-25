@@ -144,6 +144,12 @@ body {
 }
 
 /* ----------- MODAL ----------- */
+.modal-america    { --modal-color: #2e7d32; }
+.modal-europe     { --modal-color: #ff33b7; }
+.modal-africa     { --modal-color: #1edbdf; }
+.modal-asia       { --modal-color: #f0c72c; }
+.modal-oceania    { --modal-color: #945cbf; }
+
 .modal {
     display: none;
     position: fixed;
@@ -187,8 +193,8 @@ body {
 .modal-content h2 {
     margin-top: 0;
     font-size: 30px;
-    color: #2e7d32;
-    border-bottom: 1px solid #eee;
+    color: var(--modal-color);
+    border-bottom: 2px solid var(--modal-color);
     padding-bottom: 10px;
     text-align: center;
 }
@@ -208,15 +214,15 @@ body {
     margin: 0;
     font-size: 15px;
     line-height: 1.4;
-    color: #2e7d32;
+    color: var(--modal-color);
     font-weight: 500;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .modal-info-grid p:hover {
-    background-color: #e8f5e9;
-    color: #1b5e20;
+    background-color: rgba(46, 125, 50, 0.1);
+    color: var(--modal-color);
 }
 
 #modal-countries {
@@ -225,7 +231,7 @@ body {
     background-color: #f9f9f9;
     border: 1px solid #e0e0e0;
     border-radius: 6px;
-    color: #2e7d32;
+    color: var(--modal-color);
     font-size: 15px;
     line-height: 1.6;
     font-weight: 500;
@@ -234,8 +240,8 @@ body {
 }
 
 #modal-countries:hover {
-    background-color: #e8f5e9;
-    color: #1b5e20;
+    background-color: rgba(46, 125, 50, 0.1);
+    color: var(--modal-color);
 }
 
 #modal-countries img {
