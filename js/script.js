@@ -72,36 +72,45 @@ function isInContinent(country, cont) {
 function mostrarPorContinente(continent, buttonElement) {
     const resultsDiv = document.getElementById('plants-list');
     resultsDiv.innerHTML = '';
-    document.querySelectorAll('#continent-buttons button').forEach(btn => btn.classList.remove('active'));
-    if (buttonElement) buttonElement.classList.add('active');
+
+    const allButtons = document.querySelectorAll('#continent-buttons button');
+    allButtons.forEach(btn => btn.classList.remove('active'));
+    if (buttonElement) {
+        buttonElement.classList.add('active');
+    }
+    document.body.setAttribute('data-continente', continent.toLowerCase());
 
     const plants = validContinents[continent];
-    if (!plants?.length) {
+    if (!plants || plants.length === 0) {
         resultsDiv.innerHTML = `<p>No se encontraron plantas en ${continent}.</p>`;
         return;
     }
 
     plants.forEach(plant => {
-        const card = document.createElement('div');
-        card.classList.add('plant-card');
+        const plantCard = document.createElement('div');
+        plantCard.classList.add('plant-card');
 
-        const imageDiv = document.createElement('div');
-        imageDiv.classList.add('plant-image');
+        const plantImage = document.createElement('div');
+        plantImage.classList.add('plant-image');
         const img = document.createElement('img');
-        img.src = plant.image_url || 'https://via.placeholder.com/150';
+        img.src = plant.image_url || 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png';
         img.onerror = () => {
-            img.src = 'img/imgrota.png';
+            img.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png';
         };
-        imageDiv.appendChild(img);
+        plantImage.appendChild(img);
 
-        const info = document.createElement('div');
-        info.classList.add('plant-info');
-        info.textContent = plant.common_name || plant.scientific_name;
+        const plantInfo = document.createElement('div');
+        plantInfo.classList.add('plant-info');
+        plantInfo.textContent = plant.common_name || plant.scientific_name;
 
-        card.appendChild(imageDiv);
-        card.appendChild(info);
-        card.onclick = () => openPlantModal(plant);
-        resultsDiv.appendChild(card);
+        plantCard.appendChild(plantImage);
+        plantCard.appendChild(plantInfo);
+
+        plantCard.onclick = () => {
+            openPlantModal(plant);
+        };
+
+        resultsDiv.appendChild(plantCard);
     });
 }
 
@@ -109,35 +118,36 @@ async function openPlantModal(plant) {
     document.getElementById('modal-plant-name').textContent = plant.common_name || plant.scientific_name;
     const mainImage = document.getElementById('modal-main-image');
     const query = `${plant.common_name || ''} ${plant.scientific_name || ''}`.trim();
-    const url = `https://plantas-backend.onrender.com/get-images?query=${encodeURIComponent(query)}`;
+    const unsplashApiUrl = `https://plantas-backend.onrender.com/get-images?query=${encodeURIComponent(query)}`;
 
     try {
-        const res = await fetch(url);
-        const data = await res.json();
-        const carousel = document.getElementById('carousel-images');
-        carousel.innerHTML = '';
+        const response = await fetch(unsplashApiUrl);
+        const data = await response.json();
+        const carouselImagesDiv = document.getElementById('carousel-images');
+        carouselImagesDiv.innerHTML = '';
 
         if (data.results.length > 0) {
             mainImage.src = data.results[0].urls.small;
             mainImage.onerror = () => {
-                mainImage.src = 'https://via.placeholder.com/150';
+                mainImage.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png';
             };
-            data.results.forEach(imgData => {
-                const thumb = document.createElement('img');
-                thumb.src = imgData.urls.thumb;
-                thumb.onerror = () => {
-                    thumb.src = 'https://via.placeholder.com/150';
+            data.results.forEach(image => {
+                const img = document.createElement('img');
+                img.src = image.urls.thumb;
+                img.onerror = () => {
+                    img.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png';
                 };
-                thumb.onclick = () => {
-                    mainImage.src = imgData.urls.small;
-                };
-                carousel.appendChild(thumb);
+                img.addEventListener('click', () => {
+                    mainImage.src = image.urls.small;
+                });
+                carouselImagesDiv.appendChild(img);
             });
         }
-    } catch (e) {
-        console.error('Error al cargar imágenes Unsplash:', e);
+    } catch (error) {
+        console.error('Error al obtener imágenes de Unsplash:', error);
     }
 
+    // Países y banderas
     const paises = [...new Set(plant.distribution?.native || [])].slice(0, 3);
     const banderas = paises.map(pais => {
         const code = getCountryCode(pais);
@@ -145,8 +155,8 @@ async function openPlantModal(plant) {
     });
     document.getElementById('modal-countries').innerHTML = `Países nativos:<br>${banderas.join('<br>') || 'No disponible'}`;
 
-    const syns = plant.synonyms.slice(0, 3).map(s => s.name || s).join(', ') || 'No disponible';
-    document.getElementById('modal-synonyms').textContent = `Sinónimos: ${syns}`;
+    const synonyms = plant.synonyms.slice(0, 3).map(s => s.name || s).join(', ') || 'No disponible';
+    document.getElementById('modal-synonyms').textContent = `Sinónimos: ${synonyms}`;
     document.getElementById('modal-scientific-name').textContent = `Nombre científico: ${plant.scientific_name}`;
     document.getElementById('modal-year').textContent = `Año: ${plant.year || 'No disponible'}`;
     document.getElementById('modal-bibliography').textContent = `Bibliografía: ${plant.bibliography || 'No disponible'}`;
@@ -155,7 +165,15 @@ async function openPlantModal(plant) {
     document.getElementById('modal-family').textContent = `Familia: ${plant.family}`;
     document.getElementById('modal-genus').textContent = `Género: ${plant.genus || 'No disponible'}`;
 
-    document.getElementById('plantModal').style.display = 'block';
+    // Cambiar color del modal según el continente
+    const modal = document.getElementById('plantModal');
+    modal.classList.remove('modal-america', 'modal-europe', 'modal-africa', 'modal-asia', 'modal-oceania');
+    const currentContinent = document.body.getAttribute('data-continente');
+    if (currentContinent) {
+        modal.classList.add(`modal-${currentContinent}`);
+    }
+
+    modal.style.display = 'block';
 }
 
 function getCountryCode(name) {
