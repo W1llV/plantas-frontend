@@ -229,7 +229,8 @@ async function main() {
     classifyPlantsByContinent(plants);
     const btn = document.querySelector('button[onclick*="America"]');
     mostrarPorContinente('America', btn);
-    document.getElementById('loading-spinner').style.display = 'none';
+    const spinner = document.getElementById('loading-spinner');
+    if (spinner) spinner.style.display = 'none';
 }
 
 main();
