@@ -7,7 +7,7 @@ const validContinents = {
 };
 
 async function fetchAllPlantIds(page = 1, allIds = []) {
-    if (page > 3) return allIds;
+    if (page > 15) return allIds;
     const url = `https://plantas-backend.onrender.com/get-plants?page=${page}`;
     try {
         const response = await fetch(url);
