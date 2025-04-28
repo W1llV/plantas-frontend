@@ -370,3 +370,46 @@ body {
   100% { transform: rotate(360deg); }
 }
 
+/* ----------- Footer Animado ----------- */
+.site-footer {
+  background-color: #2e7d32;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  margin-top: 40px;
+  border-top: 5px solid #1b5e20;
+  opacity: 0;
+  animation: fadeInFooter 1.5s ease forwards;
+}
+
+@keyframes fadeInFooter {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.site-footer a {
+  color: #fff59d;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 0 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.site-footer a:hover {
+  color: #ffffff;
+}
+
+.api-icon {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+.api-icon:hover {
+  transform: scale(1.3);
+}
